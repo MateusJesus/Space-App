@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import GlobalStyles from "./componentes/GlobalStyles"
+import Header from "./componentes/Header"
 
 const Gradient = styled.div`
 
@@ -14,6 +15,7 @@ function App() {
   return (
     <Gradient>
       <GlobalStyles/>
+      <Header/>
     </Gradient>
   )
 }
