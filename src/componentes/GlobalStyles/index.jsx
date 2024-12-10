@@ -3,6 +3,7 @@ import GandhiSansBold from "./fontes/GandhiSans-Bold.otf"
 import GandhiSansRegular from "./fontes/GandhiSans-Regular.otf"
 
 const GlobalStyles = createGlobalStyle`
+
   @font-face {
     font-family: "GandhiSansBold";
     src: local(Gandhi Sans Bold), local(GandhiSansBold), url(${GandhiSansBold});
