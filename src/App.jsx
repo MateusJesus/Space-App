@@ -6,7 +6,7 @@ import Banner from "./componentes/Banner"
 import BannerBG from '/assets/Banner.png'
 import Gallery from "./componentes/Gallery"
 import Images from "./fotos.json"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ModalZoom from "./componentes/ModalZoom"
 
 const Gradient = styled.div`
@@ -35,9 +35,20 @@ const GalleryContainer = styled.div`
 function App() {
 
   const [ImagesGallery, setImagesGallery] = useState(Images)
-  const [ImagesGalleryFilter, setImagesGalleryFilter] = useState(ImagesGallery)
+  const [filtro, setFiltro] = useState('')
+  const [Tag, setTag] = useState(0)
   const [ImageZoom, setImageZoom] = useState(null)
 
+  useEffect(() => {
+    const ImagesGalleryFiltradas = Images.filter(foto => {
+      const filtroPorTag = !Tag || foto.tagId === Tag;
+      const filtroPorTitulo = !filtro || foto.titulo.toLowerCase().includes(filtro.toLowerCase())
+      return filtroPorTag && filtroPorTitulo
+    })
+    setImagesGallery(ImagesGalleryFiltradas)
+  }, [Tag, filtro])
+
+    console.log(filtro)
   const toggleFav = (ImageFav) => {
     if (ImageFav.id === ImageZoom?.id) {
       setImageZoom({
@@ -46,7 +57,7 @@ function App() {
       })
     }
 
-    setImagesGalleryFilter(ImagesGalleryFilter.map(ImagesGalleryFav => {
+    setImagesGallery(ImagesGallery.map(ImagesGalleryFav => {
       return {
         ...ImagesGalleryFav,
         fav: ImagesGalleryFav.id === ImageFav.id ? !ImageFav.fav : ImagesGalleryFav.fav,
@@ -54,15 +65,15 @@ function App() {
     }));
   }
 
-  const ImageFilter = (Filter) => {
-    setImagesGalleryFilter(ImagesGallery.filter(filter => Filter === 0 ? ImagesGallery : filter.tagId === Filter))
-  }
 
   return (
     <Gradient>
       <GlobalStyles />
       <Container>
-        <Header />
+        <Header
+          filtro={filtro}
+          setFiltro={setFiltro}
+        />
         <MainContainer>
           <Sidebar />
           <GalleryContainer>
@@ -73,8 +84,8 @@ function App() {
             <Gallery
               toggleFav={toggleFav}
               selectimgzoom={imgsel => setImageZoom(imgsel)}
-              ImagesGallery={ImagesGalleryFilter}
-              ImageFilter={ImageFilter}
+              ImagesGallery={ImagesGallery}
+              ImageFilter={setTag}
             />
           </GalleryContainer>
         </MainContainer>

@@ -10,7 +10,7 @@ const HeaderStyled = styled.header`
     }
 `
 
-const Header = () => {
+const Header = ({ setFiltro }) => {
     return (
         <HeaderStyled>
             <img
@@ -19,6 +19,7 @@ const Header = () => {
             />
             <Input
                 type='text'
+                setFiltro={setFiltro}
                 placeholder='O que você procura?'
             />
         </HeaderStyled>
