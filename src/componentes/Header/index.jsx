@@ -2,7 +2,7 @@ import { styled } from "styled-components"
 import Input from "../Input"
 
 const HeaderStyled = styled.header`
-    padding: 60px 0;
+    padding: 60px 1em;
     display: flex;
     justify-content: space-between;
     img {

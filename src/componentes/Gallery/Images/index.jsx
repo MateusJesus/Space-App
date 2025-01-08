@@ -1,4 +1,8 @@
 import styled from "styled-components"
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import ButtonIcon from "./ButtonIcon";
 
 const ImageContent = styled.figure`
     background-color: #001634;
@@ -28,9 +32,19 @@ const ImageFooter = styled.footer`
     span{
         color: #cacaca;
     }
+    button{
+        background-color: transparent;
+        border: none;
+        color: white;
+    }
 `
 
-const Images = ({ Image }) => {
+const Buttons = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+const Images = ({toggleFav, selectzoom, Image, expanded = false }) => {
     return (
         <ImageContent>
             <ImageRef src={Image.path} alt={`Imagem de ${Image.titulo}`} />
@@ -38,10 +52,15 @@ const Images = ({ Image }) => {
                 <h3>{Image.titulo}</h3>
                 <ImageFooter>
                     <span>{Image.fonte}</span>
-                    <div>
-                        <button>curtir</button>
-                        <button>expandir</button>
-                    </div>
+                    <Buttons>
+                        <ButtonIcon onClick={() => toggleFav(Image)}>
+                                {Image.fav ? <FavoriteIcon /> : <FavoriteBorderIcon /> }
+                        </ButtonIcon>
+                        {!expanded &&
+                            <ButtonIcon onClick={() => selectzoom(Image)}>
+                                    <OpenInFullIcon />
+                            </ButtonIcon>}
+                    </Buttons>
                 </ImageFooter>
             </ImageInfo>
         </ImageContent>

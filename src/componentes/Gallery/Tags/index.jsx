@@ -26,11 +26,11 @@ const ContainerTags = styled.div`
     }
 `
 
-const Tags = () => {
+const Tags = ({ ImageFilter }) => {
     return (
         <ContainerTags>
             <p>Busque por tags:</p>
-            {TagsJson.map(tag => <button onClick={action => console.log(tag.titulo)} key={tag.id}>{tag.titulo}</button>)}
+            {TagsJson.map(tag => <button onClick={action => ImageFilter(tag.id)} key={tag.id}>{tag.titulo}</button>)}
         </ContainerTags>
     )
 }

@@ -14,21 +14,30 @@ const GalleryContainer = styled.section`
 const GalleryContent = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr; 
-    gap: 1em;
+    gap: 1.5em;
 `
 
-const Gallery = ({ ImagesGallery }) => {
+const Gallery = ({ ImageFilter, toggleFav, selectimgzoom, ImagesGallery }) => {
     return (
         <>
-            <Tags />
+            <Tags ImageFilter={ImageFilter} />
             <Container>
                 <GalleryContainer>
                     <Title>Navegue pela galeria</Title>
                     <GalleryContent>
-                        {ImagesGallery.map(image => <Images key={image.id} Image={image} />)}
+                        {ImagesGallery
+                            .map(image =>
+                                <Images
+                                    toggleFav={toggleFav}
+                                    selectzoom={selectimgzoom}
+                                    key={image.id}
+                                    Image={image}
+                                />
+                            )
+                        }
                     </GalleryContent>
                 </GalleryContainer>
-                <Popular />
+                <Popular ImagePath={ImagesGallery.map(image => image.path)} />
             </Container>
         </>
     )
